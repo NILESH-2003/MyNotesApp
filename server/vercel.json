@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js", // Your entry point
+      "use": "@vercel/node" // Specify the framework or runtime
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/" // Route configuration
+    }
+  ],
+
+}
