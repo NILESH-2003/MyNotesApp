@@ -2,15 +2,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.js", // Your entry point
-      "use": "@vercel/node" // Specify the framework or runtime
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build" // Directory for built files
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/" // Route configuration
+      "dest": "/index.html" // Serve index.html for all routes (SPA)
     }
-  ],
-
+  ]
 }
