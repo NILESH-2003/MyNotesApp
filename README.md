@@ -14,7 +14,6 @@ NotesApp is a simple and intuitive web application that allows users to create, 
 - **Backend:** Node.js, Express
 - **Database:** MongoDB Atlas
 - **Image Hosting:** Cloudinary
-- **State Management:** Context API 
 
 ## Getting Started
 
