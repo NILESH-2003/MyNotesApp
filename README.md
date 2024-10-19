@@ -59,15 +59,20 @@ Frontend Deployment
 The frontend is deployed on Netlify. Follow these steps:
 
 Build the frontend:
-bash
-Copy code
+
 npm run build
+
 Deploy the contents of the dist folder on Netlify by setting the base directory and publishing directory as follows:
 Branch to Deploy: main
+
 Base Directory: client
+
 Build Command: npm run build
+
 Publish Directory: dist
+
 License
+
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 Acknowledgments
@@ -76,10 +81,3 @@ Node.js
 Express
 MongoDB
 Cloudinary
-sql
-Copy code
-
-### Instructions to Customize
-- Replace `https://github.com/yourusername/NotesApp.git` with your actual GitHub repository link.
-- Update any sections as needed to match your project specifics.
-- Feel free to add any additional features or acknowledgments relevant to your project!
