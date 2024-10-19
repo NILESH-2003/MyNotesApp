@@ -1,4 +1,4 @@
-# NotesApp
+# NotesApp by Nilesh Ranjan CMRIT
 
 ## Overview
 NotesApp is a simple and intuitive web application that allows users to create, manage, and organize their notes seamlessly. Built with a React frontend and an Express backend, this application leverages MongoDB for data storage.
@@ -84,5 +84,3 @@ Copy code
 - Replace `https://github.com/yourusername/NotesApp.git` with your actual GitHub repository link.
 - Update any sections as needed to match your project specifics.
 - Feel free to add any additional features or acknowledgments relevant to your project!
-
-Let me know if you need any more adjustments!
