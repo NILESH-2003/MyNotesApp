@@ -3,27 +3,23 @@ const dotenv = require("dotenv");
 const User = require("../Models/User");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
-const cloudinary = require("cloudinary");
-
+const cloudinary = require("cloudinary").v2;
 dotenv.config();
 
 const router = express.Router();
 
 const storage = multer.memoryStorage();
-var upload = multer({
-    storage: storage
-});
+const upload = multer({ storage: storage });
 
-//Signup Route
+// Signup Route
 const signup = async (req, res) => {
     try {
-        const { firstName, lastName, userBio, userEmail, userMobile, userName } = req.body;
+        const { firstName, lastName, userBio, userEmail, userMobile, userName, userPassword } = req.body;
 
         // If current user exists
-
         const existingUser = await User.findOne({ userEmail });
         if (existingUser) {
-            res.status(401).send("User Already Exists with this email");
+            return res.status(401).send("User Already Exists with this email"); // Added return
         }
 
         // Check if file is provided
@@ -31,17 +27,16 @@ const signup = async (req, res) => {
             return res.status(400).json({ error: "No Profile Image Provided" });
         }
 
+        // Upload to Cloudinary
         const result = await cloudinary.uploader.upload(req.file.path);
         console.log(result);
 
-        const password = req.body.userPassword;
         const saltRounds = 10;
-
         const salt = await bcrypt.genSalt(saltRounds);
-
-        const encryptedPassword = await bcrypt.hash(password, salt);
+        const encryptedPassword = await bcrypt.hash(userPassword, salt);
         console.log("Request Body: ", req.body);
 
+        // Create new user
         const newUser = new User({
             firstName,
             lastName,
@@ -61,33 +56,33 @@ const signup = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(400).json({ error: error.message });
-        console.log(error);
+        console.error(error); // Log the error
+        return res.status(500).json({ error: "Server error" }); // Use 500 for server errors
     }
 };
 
 const login = async (req, res) => {
     try {
         const { userEmail, userPassword } = req.body;
-        // console.log(userEmail);
 
         const user = await User.findOne({ userEmail });
 
         if (user) {
             const passwordMatch = await bcrypt.compare(userPassword, user.userPassword);
             if (passwordMatch) {
-                return res.json(user);
+                return res.status(200).json(user); // Send 200 for successful login
             } else {
-                return res.json({ status: "Error", getUser: false })
+                return res.status(401).json({ status: "Error", message: "Invalid credentials" }); // Use 401 for unauthorized
             }
         } else {
-            return res.json({ status: "Error", getUser: false });
+            return res.status(404).json({ status: "Error", message: "User not found" }); // Use 404 for user not found
         }
 
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        console.error(error); // Log the error
+        return res.status(500).json({ error: "Server error" }); // Use 500 for server errors
     }
 };
 
-
 module.exports = { signup, login };
+
