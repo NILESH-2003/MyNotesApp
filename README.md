@@ -26,29 +26,31 @@ NotesApp is a simple and intuitive web application that allows users to create, 
    ```bash
    git clone https://github.com/yourusername/NotesApp.git
 Navigate to the client directory and install dependencies:
-bash
-Copy code
+
 cd NotesApp/client
+
 npm install
+
 Navigate to the server directory and install dependencies:
-bash
-Copy code
+
 cd ../server
+
 npm install
+
 Running the Application
+
 Start the backend server:
 
-bash
-Copy code
 npm start
+
 The server runs on http://localhost:6969.
 
 In a separate terminal, start the frontend:
 
-bash
-Copy code
 cd client
+
 npm start
+
 The frontend will be available at http://localhost:3000.
 
 Deployment
